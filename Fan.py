@@ -10,7 +10,7 @@ PinVentilador = 21
 # Configuraciones
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PinVentilador,GPIO.OUT)
-pwm = GPIO.PWM(PinVentilador, 20)
+pwm = GPIO.PWM(PinVentilador, 20) # Pin del Ventilador y frecuencia del PWM en HZ
 cpu = CPUTemperature()
 
 #Arranque
@@ -21,12 +21,12 @@ try:
     while True:# Loop until Ctl C is pressed to stop.
         cpu.temperature
         print(cpu.temperature)
-        if cpu.temperature > 57:
+        if cpu.temperature > 57: #Si supera 57 grados
             dc = dc + 10
             if dc > 100:
                 dc = 100
             pwm.ChangeDutyCycle(dc)
-        elif cpu.temperature < 54:
+        elif cpu.temperature < 54: # Si se reduce menos de 54
             dc = dc -10
             if dc< 0:
                 dc = 0
